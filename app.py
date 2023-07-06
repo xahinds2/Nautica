@@ -1,15 +1,36 @@
 from utils.search import flipkartSearch, amazonSearch
 from utils.proccess import populate_data
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask import request
 import pandas as pd
 import time
 
+
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route('/')
 def home():
+    return redirect(url_for('login'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+        if username == 'admin' and password == 'admin':
+            return redirect(url_for('search'))
+
+        return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+
+@app.route("/search", methods=["POST", "GET"])
+def search():
     if request.method == "POST":
 
         q = request.form["nm"]
@@ -42,8 +63,7 @@ def Stocks():
 
 @app.route("/<usr>")
 def user(usr):
-
-    return f"<h1>{usr}</h1>"
+    return f"<h1>Please check the URL once.</h1>"
 
 
 if __name__ == "__main__":

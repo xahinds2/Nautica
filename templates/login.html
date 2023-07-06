@@ -1,89 +1,52 @@
-{% extends "base.html" %}
-{% block title %}Kharcha Kam{% endblock %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
 
-<div><br>
-  <div class="container">
-    
-    <p class="mb-5" align  = 'center'>Hello there, Welcome to kharcha kam.<br>
-    We are here to save you some money, just enter the name of product that you want to buy<br>
-  we will search your product on Amazon and flipkart then show them at the same place. </p>
-    <h3 >
-      <script type="text/javascript">// <![CDATA[
-        function loading(){
-            $("#loading").show();
-            $("#content").hide();       
-        }
-// ]]></script>
-    <form action="#" method="post">
-      <p align='center'>Enter the name of Product:&nbsp &nbsp &nbsp 
-      <input type="text" name="nm" placeholder=""/></h3></p>
-      <h5  align='center'><input type="submit" value="Compare" /></h5>
-    </form>  <div class="container">
-
-    
-
-    <div class="table-responsive custom-table-responsive">
-
-      <table class="table custom-table">
-        <thead>
-          <tr>  
-
-            
-            <th scope="col">#</th>
-            <th scope="col">Flipkart product</th>
-            <th scope="col">flipkart price</th>
-            <th scope="col">Amazon product</th>
-            <th scope="col">Amazon price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for value in stocklist%}      
-          <tr scope="row">
-            
-            <td>
-              {{ value[0] }}
-            </td>
-            <td>{{ value[1] }}</td>
-            <td>
-              {{ value[2] }}
-            </td>
-            <td>{{ value[3] }}</td>
-            <td>{{ value[4] }}</td>
-          </tr>
-          {% endfor %}
-          
-          
-        </tbody>
-      </table>
+<body>
+  <section class="hero is-info is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <form method="POST">
+              <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input class="input" type="text" name="username" placeholder="Username">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <p class="control has-icons-left">
+                  <input class="input" type="password" name="password" placeholder="Password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button type="submit" class="button is-success">
+                    Login
+                  </button>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+</body>
 
-
-  </div>
-
-<!-- <table class="table table-striped table-sm">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Flipkart product</th>
-        <th>flipkart price</th>
-        <th>Amazon product</th>
-        <th>Amazon price</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for value in stocklist%}
-      <tr>
-        <td>{{ value[0] }}</td>
-        <td>{{ value[1] }}</td>
-        <td>{{ value[2] }}</td>
-        <td>{{ value[3] }}</td>
-        <td>{{ value[4] }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table> -->
-
-
-{% endblock %}
+</html>
