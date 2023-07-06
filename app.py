@@ -27,15 +27,14 @@ def home():
         values = list(data.values)
         data.to_csv('logs/datalog.csv')
         return render_template('index.html', stocklist=values)
-    else:
-        return render_template("index.html")
+
+    return render_template("index.html")
 
 
 @app.route('/stocks')
 def Stocks():
     filename = 'logs/datalog.csv'
     data = pd.read_csv(filename)
-    print(data.columns)
     data.pop('Unnamed: 0')
     values = list(data.values)
     return render_template('stocks.html', stocklist=values)
