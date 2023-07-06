@@ -29,11 +29,12 @@ def home():
 
 @app.route('/stocks')
 def Stocks():
-    key = "YO"
-    filename = 'flipkartandamazon.csv'
-    data = pd.read_csv(filename, header=0)
+    filename = 'logs/datalog.csv'
+    data = pd.read_csv(filename)
+    print(data.columns)
+    data.pop('Unnamed: 0')
     values = list(data.values)
-    return render_template('stocks.html', stocklist=values, key=key)
+    return render_template('stocks.html', stocklist=values)
 
 
 @app.route("/<usr>")
@@ -43,4 +44,4 @@ def user(usr):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
