@@ -8,7 +8,7 @@ def flipkartSearch(q):
     url = "https://www.flipkart.com/search?q=" + q
 
     response = requests.get(url)
-    soup = BeautifulSoup(response.text, "lxml")
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     product_list = []
 
