@@ -3,6 +3,7 @@ from utils.proccess import populate_data
 from flask import Flask, render_template
 from flask import request
 import pandas as pd
+import time
 
 app = Flask(__name__)
 
@@ -15,7 +16,10 @@ def home():
 
         data_list1 = flipkartSearch(q)
         data_list2 = amazonSearch(q)
-        while not data_list2:
+
+        # fix for traffic error
+        t_end = time.time() + 10
+        while not data_list2 and time.time() < t_end:
             data_list2 = amazonSearch(q)
 
         data = populate_data(data_list1, data_list2)
