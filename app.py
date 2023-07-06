@@ -1,3 +1,4 @@
+from utils.userdata import verifyUser, addUser
 from utils.search import flipkartSearch, amazonSearch
 from utils.proccess import populate_data
 from flask import Flask, render_template, redirect, url_for
@@ -21,12 +22,28 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username == 'admin' and password == 'admin':
+        if verifyUser(username, password):
             return redirect(url_for('search'))
 
-        return redirect(url_for('login'))
+        return redirect(url_for('login.html'))
 
     return render_template('login.html')
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        if addUser(username, password, email):
+            return redirect(url_for('search'))
+
+        return redirect(url_for('signup'))
+
+    return render_template('signup.html')
 
 
 @app.route("/search", methods=["POST", "GET"])
