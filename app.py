@@ -50,7 +50,7 @@ def signup():
 def search():
     if request.method == "POST":
 
-        q = request.form["nm"]
+        q = request.form["product_name"]
 
         data_list1 = flipkartSearch(q)
         data_list2 = amazonSearch(q)
@@ -80,7 +80,8 @@ def Stocks():
 
 @app.route("/<usr>")
 def user(usr):
-    return f"<h1>Please check the URL once.</h1>"
+    x = "127.0. 0.1:5000/" + usr
+    return f"<h1>Please check the URL once : {x}</h1>"
 
 
 if __name__ == "__main__":
