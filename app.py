@@ -15,11 +15,13 @@ def home():
 
         data_list1 = flipkartSearch(q)
         data_list2 = amazonSearch(q)
+        while not data_list2:
+            data_list2 = amazonSearch(q)
 
         data = populate_data(data_list1, data_list2)
 
         values = list(data.values)
-        data.to_csv('logs.csv')
+        data.to_csv('logs/datalog.csv')
         return render_template('index.html', stocklist=values)
     else:
         return render_template("index.html")
