@@ -25,7 +25,7 @@ def login():
         if verifyUser(username, password):
             return redirect(url_for('search'))
 
-        return redirect(url_for('login.html'))
+        return render_template('login.html')
 
     return render_template('login.html')
 
