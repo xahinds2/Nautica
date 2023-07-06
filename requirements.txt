@@ -1,0 +1,6 @@
+flask
+pandas
+bs4
+requests
+msedge-selenium-tools
+urllib3
