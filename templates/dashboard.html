@@ -2,61 +2,75 @@
 {% block content %}
 
 
-<div><br>
-    <div class="container">
+<div class="container text-center">
 
-        <p align='center' class="mb-5">Hello there, Welcome to Nautica.<br>
-            We are here to save you some money, just enter the name of product that you want to buy<br>
-            we will search your product on Amazon and flipkart then show them at the same place.
-        </p>
+    <div class="container " style="height: 100vh ; display:flex ; align-items:center; justify-content:center">
+        <div class="row h-auto justify-content-center align-items-center ">
+            <div class="col-5 ">
+                <h1 class="text-white">
+                    Search for the product:
+                </h1>
 
-        <p align='center'>
-            Note: If you don't see desired output try changing keyword.<br>
-        </p>
+            </div>
 
-        <h1>
-            <form action="#" method="post">
-                <p align='center'>Enter the name of Product:&nbsp &nbsp &nbsp
-                    <input name="product_name" placeholder="" type="text"/>
-                </p>
-                <h5 align='center'><input type="submit" value="Compare"/></h5>
-            </form>
-        </h1>
+            <div class="col align-items-center ">
+                <div class="container ">
+                    <form action="#" class="row " method="post">
 
-        <div class="table-responsive custom-table-responsive">
+                        <div class="col-8">
 
-            <table class="table custom-table">
-                <thead>
-                <tr>
+                            <input class="form-control" id="inputPassword2" name="product_name" placeholder=""
+                                   type="text">
+                        </div>
+                        <div class="col-auto ">
+                            <button class="btn btn-primary mb-3" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
 
 
-                    <th scope="col">#</th>
-                    <th scope="col">Products available in Flipkart</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Products available in Amazon</th>
-                    <th scope="col">Price</th>
-                </tr>
-                </thead>
+            </div>
 
-                <tbody>
-                    {% for value in stocklist%}
-                    <tr scope="row">
-
-                        <td>
-                            {{ value[0] }}
-                        </td>
-                        <td>{{ value[1] }}</td>
-                        <td>
-                            {{ value[2] }}
-                        </td>
-                        <td>{{ value[3] }}</td>
-                        <td>{{ value[4] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
         </div>
     </div>
+
+
+    <div class="table-responsive custom-table-responsive">
+
+        <table class="table custom-table">
+            <thead>
+            <tr>
+
+
+                <th scope="col">No.</th>
+                <th scope="col">Products available in Flipkart</th>
+                <th scope="col">Price</th>
+                <th scope="col">Products available in Amazon</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for value in stocklist%}
+            <tr scope="row">
+
+                <td>
+                    {{ value[0] }}
+                </td>
+                <td>{{ value[1] }}</td>
+                <td>
+                    {{ value[2] }}
+                </td>
+                <td>{{ value[3] }}</td>
+                <td>{{ value[4] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
 </div>
+
+
 {% endblock %}
