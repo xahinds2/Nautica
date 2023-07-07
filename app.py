@@ -24,6 +24,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -37,34 +41,41 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    if request.method == 'POST':
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        username = request.form['username']
+        password = request.form['password']
+
+        user = User.query.filter_by(username=username).first()
         if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
+            if bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 return redirect(url_for('dashboard'))
 
-    return render_template('login.html', form=form)
+        return render_template('login.html')
+
+    return render_template('login.html')
 
 
-@ app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form = RegisterForm()
+    if request.method == 'POST':
 
-    previous_user = User.query.filter_by(username=form.username.data).first()
-    if previous_user:
-        return render_template('signup.html', form=form)
+        username = request.form['username']
+        password = request.form['password']
 
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
-        new_user = User(username=form.username.data, password=hashed_password)
+        previous_user = User.query.filter_by(username=username).first()
+        if previous_user:
+            return render_template('signup.html')
+
+        hashed_password = bcrypt.generate_password_hash(password)
+        new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
+
         return redirect(url_for('login'))
 
-    return render_template('signup.html', form=form)
+    return render_template('signup.html')
 
 
 @app.route('/logout', methods=['GET', 'POST'])
