@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return redirect(url_for('login'))
+    return render_template('home.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
