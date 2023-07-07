@@ -3,7 +3,6 @@ from utils.forms import LoginForm, RegisterForm
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
-from wtforms.validators import ValidationError
 from flask_bcrypt import Bcrypt
 
 
@@ -31,14 +30,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-def validate_username(username):
-    existing_user_username = User.query.filter_by(
-        username=username.data).first()
-    if existing_user_username:
-        raise ValidationError(
-            'That username already exists. Please choose a different one.')
-
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -47,18 +38,24 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('dashboard'))
+
     return render_template('login.html', form=form)
 
 
-@ app.route('/register', methods=['GET', 'POST'])
-def register():
+@ app.route('/signup', methods=['GET', 'POST'])
+def signup():
     form = RegisterForm()
+
+    previous_user = User.query.filter_by(username=form.username.data).first()
+    if previous_user:
+        return render_template('signup.html', form=form)
 
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
@@ -67,7 +64,7 @@ def register():
         db.session.commit()
         return redirect(url_for('login'))
 
-    return render_template('register.html', form=form)
+    return render_template('signup.html', form=form)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
