@@ -1,4 +1,23 @@
 import pandas as pd
+from utils.search import flipkartSearch, amazonSearch
+from utils.proccess import populate_data
+import time
+
+
+def searchProduct(q):
+    data_list1 = flipkartSearch(q)
+    data_list2 = amazonSearch(q)
+
+    # fix for traffic error
+    t_end = time.time() + 10
+    while not data_list2 and time.time() < t_end:
+        data_list2 = amazonSearch(q)
+
+    data = populate_data(data_list1, data_list2)
+
+    values = list(data.values)
+    data.to_csv('logs/datalog.csv')
+    return values
 
 
 def populate_data(query_list1, query_list2):
