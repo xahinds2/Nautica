@@ -1,6 +1,5 @@
 import pandas as pd
 from utils.search import flipkartSearch, amazonSearch
-from utils.proccess import populate_data
 import time
 
 
