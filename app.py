@@ -52,7 +52,8 @@ def login():
                 login_user(user)
                 return redirect(url_for('dashboard'))
 
-        return render_template('login.html')
+        return render_template('login.html',
+                               error='Username or Password is wrong!')
 
     return render_template('login.html')
 
@@ -66,7 +67,8 @@ def signup():
 
         previous_user = User.query.filter_by(username=username).first()
         if previous_user:
-            return render_template('signup.html')
+            return render_template('signup.html',
+                                   error='Username already exist!')
 
         hashed_password = bcrypt.generate_password_hash(password)
         new_user = User(username=username, password=hashed_password)
