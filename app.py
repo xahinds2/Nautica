@@ -1,5 +1,4 @@
 from utils.proccess import searchProduct
-from utils.forms import LoginForm, RegisterForm
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
@@ -10,6 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = 'thisisasecretkey'
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
