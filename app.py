@@ -1,13 +1,37 @@
-from utils.userdata import verifyUser, addUser
-from utils.search import flipkartSearch, amazonSearch
-from utils.proccess import populate_data
-from flask import Flask, render_template, redirect, url_for
-from flask import request
-import pandas as pd
-import time
+from utils.proccess import searchProduct
+from flask import Flask, render_template, url_for, redirect, request
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SECRET_KEY'] = 'thisisasecretkey'
+
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')
@@ -22,8 +46,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if verifyUser(username, password):
-            return redirect(url_for('search'))
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if bcrypt.check_password_hash(user.password, password):
+                login_user(user)
+                return redirect(url_for('dashboard'))
 
         return render_template('login.html')
 
@@ -36,52 +63,37 @@ def signup():
 
         username = request.form['username']
         password = request.form['password']
-        email = request.form['email']
 
-        if addUser(username, password, email):
-            return redirect(url_for('search'))
+        previous_user = User.query.filter_by(username=username).first()
+        if previous_user:
+            return render_template('signup.html')
 
-        return redirect(url_for('signup'))
+        hashed_password = bcrypt.generate_password_hash(password)
+        new_user = User(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('login'))
 
     return render_template('signup.html')
 
 
-@app.route("/search", methods=["POST", "GET"])
-def search():
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+def dashboard():
     if request.method == "POST":
-
         q = request.form["product_name"]
+        values = searchProduct(q)
+        return render_template('dashboard.html', stocklist=values)
 
-        data_list1 = flipkartSearch(q)
-        data_list2 = amazonSearch(q)
-
-        # fix for traffic error
-        t_end = time.time() + 10
-        while not data_list2 and time.time() < t_end:
-            data_list2 = amazonSearch(q)
-
-        data = populate_data(data_list1, data_list2)
-
-        values = list(data.values)
-        data.to_csv('logs/datalog.csv')
-        return render_template('index.html', stocklist=values)
-
-    return render_template("index.html")
-
-
-@app.route('/stocks')
-def Stocks():
-    filename = 'logs/datalog.csv'
-    data = pd.read_csv(filename)
-    data.pop('Unnamed: 0')
-    values = list(data.values)
-    return render_template('stocks.html', stocklist=values)
-
-
-@app.route("/<usr>")
-def user(usr):
-    x = "127.0. 0.1:5000/" + usr
-    return f"<h1>Please check the URL once : {x}</h1>"
+    return render_template('dashboard.html')
 
 
 if __name__ == "__main__":
