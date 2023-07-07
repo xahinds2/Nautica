@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<section class="bg-dark py-5 py-xl-8 py-xxl-18 h-100 text-white" style="height:100vh">
+    <div class="container overflow-hidden">
+        <div class="row gy-5 gy-lg-0 align-items-lg-center justify-content-lg-between">
+            <div class="col-12 col-lg-6 order-1 order-lg-0">
+                <h1 class="display-3 fw-bold mb-3">Nautica</h1>
+                <p class="fs-4 mb-5">Powerful, extensible, and feature-packed frontend toolkit. Build and customize with
+                    Sass, utilize prebuilt grid system and components, and bring projects to life with powerful
+                    JavaScript plugins.</p>
+                <div class="d-grid gap-2 d-sm-flex">
+
+                    <a href="/signup">
+                        <button class="btn btn-primary btn-2xl rounded-pill px-4" type="button">Get Started</button>
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 text-center">
+                <img alt="" class="img-fluid mask-position-center-center mask-repeat-no-repeat mask-size-auto"
+                     loading="lazy" src="./assets/img/hero-img-1.jpg"
+                     style="-webkit-mask-image: url(./assets/img/hero-img-blob-1.svg); mask-image: url(./assets/img/hero-img-blob-1.svg);">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
