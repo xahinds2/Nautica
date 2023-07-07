@@ -51,6 +51,7 @@
 </head>
 <body>
   <div class="container">
+    <p style="color:red; ">{{error}}</p>
     <h1>Sign Up</h1>
     <form action="/signup" method="post">
       <input type="text" name="username" placeholder="Username" required><br>
@@ -58,6 +59,9 @@
       <input type="email" name="email" placeholder="Email" required><br>
       <input type="submit" value="Sign Up">
     </form>
+    <div class="signup-link">
+      <p>You already have an account? <a href="/login">Log in</a></p>
+    </div>
   </div>
 </body>
 </html>
