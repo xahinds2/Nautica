@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="2.021" timestamp="2023-07-08T10:28:03.835618" hostname="Sahin"><testcase classname="tests.test_utils.test_process.TestUtils" name="test_populate_data" time="0.009" /></testsuite></testsuites>
