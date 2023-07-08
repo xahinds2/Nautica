@@ -98,5 +98,10 @@ def dashboard():
     return render_template('dashboard.html')
 
 
+@app.route('/users')
+def users():
+    return render_template('users.html')
+
+
 if __name__ == "__main__":
     app.run()
