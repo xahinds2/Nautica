@@ -24,20 +24,21 @@ def search_product(q):
 
 def populate_data(query_list1, query_list2):
 
-    df = pd.DataFrame(columns=['SL No.', 'Title', 'Price', 'Title', 'Price'])
+    df = pd.DataFrame(columns=['SL No.', 'Title', 'Price', 'Url', 'Title', 'Price', 'Url'])
 
     for i in range(10):
         if i < len(query_list1) and i < len(query_list2):
             item1 = query_list1[i]
             item2 = query_list2[i]
-            df.loc[len(df)] = [i+1, item1['title'], item1['price'], item2['title'], item2['price']]
+            df.loc[len(df)] = [i+1, item1['title'], item1['price'], item1['url'],
+                               item2['title'], item2['price'], item2['url']]
 
         elif i < len(query_list1):
             item1 = query_list1[i]
-            df.loc[len(df)] = [i+1, item1['title'], item1['price'], 'NA', 'NA']
+            df.loc[len(df)] = [i+1, item1['title'], item1['price'], item1['url'], 'NA', 'NA', 'NA']
 
         elif i < len(query_list2):
             item2 = query_list2[i]
-            df.loc[len(df)] = [i+1, 'NA', 'NA', item2['title'], item2['price']]
+            df.loc[len(df)] = [i+1, 'NA', 'NA', 'NA', item2['title'], item2['price'], item2['url']]
 
     return df
