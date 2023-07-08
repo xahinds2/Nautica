@@ -15,5 +15,5 @@ class TestUtils(TestCase):
         data1 = []
         data2 = []
         response = populate_data(data1, data2)
-        expected = pd.DataFrame(columns=['SL No.', 'Title', 'Price', 'Title', 'Price'])
+        expected = pd.DataFrame(columns=['SL No.', 'Title', 'Price', 'Url', 'Title', 'Price', 'Url'])
         assert_frame_equal(response, expected)
