@@ -1,9 +1,9 @@
+import time
 import pandas as pd
 from utils.search import flipkartSearch, amazonSearch
-import time
 
 
-def searchProduct(q):
+def search_product(q):
     data_list1 = flipkartSearch(q)
     data_list2 = amazonSearch(q)
 
