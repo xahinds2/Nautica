@@ -12,6 +12,9 @@ def search_product(q):
     while not data_list2 and time.time() < t_end:
         data_list2 = amazon_search(q)
 
+    data_list1.sort(key=lambda x: x['price'])
+    data_list2.sort(key=lambda x: x['price'])
+
     data = populate_data(data_list1, data_list2)
 
     values = list(data.values)
