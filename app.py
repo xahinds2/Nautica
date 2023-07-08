@@ -1,12 +1,12 @@
-from utils.proccess import searchProduct
+from flask_bcrypt import Bcrypt
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from flask_bcrypt import Bcrypt
+from utils.proccess import search_product
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 
@@ -36,8 +36,7 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
-
-    return render_template('home.html', isLogin=current_user.is_authenticated)
+    return render_template('home.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -93,7 +92,7 @@ def logout():
 def dashboard():
     if request.method == "POST":
         q = request.form["product_name"]
-        values = searchProduct(q)
+        values = search_product(q)
         return render_template('dashboard.html', stocklist=values)
 
     return render_template('dashboard.html')
