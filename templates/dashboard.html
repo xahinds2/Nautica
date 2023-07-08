@@ -341,11 +341,11 @@
                 <tbody>
                 {% for value in stocklist%}
                 <tr scope="row">
-                    <td>{{ value[0] }}</td>
-                    <td>{{ value[1] }}</td>
-                    <td>{{ value[2] }}</td>
-                    <td>{{ value[3] }}</td>
-                    <td>{{ value[4] }}</td>
+                    <td><a>{{ value[0] }}</a></td>
+                    <td><a href={{ value[3] }}>{{ value[1] }}</a></td>
+                    <td><a>{{ value[2] }}</a></td>
+                    <td><a href={{ value[6] }}>{{ value[4] }}</a></td>
+                    <td><a>{{ value[5] }}</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
