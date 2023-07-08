@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def flipkartSearch(q):
+def flipkart_search(q):
 
     q = q.replace(" ", "+")
     url = "https://www.flipkart.com/search?q=" + q
@@ -30,7 +30,7 @@ def flipkartSearch(q):
     return product_list
 
 
-def amazonSearch(q):
+def amazon_search(q):
 
     q = q.replace(" ", "")
     url = 'https://www.amazon.in/s?k=' + q

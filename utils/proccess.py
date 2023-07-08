@@ -1,16 +1,16 @@
 import time
 import pandas as pd
-from utils.search import flipkartSearch, amazonSearch
+from utils.search import flipkart_search, amazon_search
 
 
 def search_product(q):
-    data_list1 = flipkartSearch(q)
-    data_list2 = amazonSearch(q)
+    data_list1 = flipkart_search(q)
+    data_list2 = amazon_search(q)
 
     # fix for traffic error
     t_end = time.time() + 10
     while not data_list2 and time.time() < t_end:
-        data_list2 = amazonSearch(q)
+        data_list2 = amazon_search(q)
 
     data = populate_data(data_list1, data_list2)
 
