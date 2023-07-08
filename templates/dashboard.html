@@ -2,10 +2,6 @@
 <html>
     <title>Nautica</title>
     <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
-        <link rel="manifest" href="/favicon_io/site.webmanifest">
         <style>
             body {
             font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -219,7 +215,6 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             rel="stylesheet"
             />
-        <title>{% block title %}{% endblock %}</title>
     </head>
     <body style="background-color:#19191d;">
         <!--  ***********************      navbar    *********************-->
@@ -285,9 +280,9 @@
                             {% for value in stocklist%}
                             <tr scope="row">
                                 <td><a>{{ value[0] }}</a></td>
-                                <td><a> href={{ value[3] }}>{{ value[1] }}</a></td>
+                                <td><a href={{ value[3] }}>{{ value[1] }}</a></td>
                                 <td><a>{{ value[2] }}</a></td>
-                                <td><a> href={{ value[6] }}>{{ value[4] }}</a></td>
+                                <td><a href={{ value[6] }}>{{ value[4] }}</a></td>
                                 <td><a>{{ value[5] }}</a></td>
                             </tr>
                             {% endfor %}
