@@ -249,7 +249,7 @@
                                     </div>
                                     <!--end of col-->
                                     <div class="col">
-                                        <input class="form-control form-control-lg form-control-borderless" class="form-control"
+                                        <input class="form-control form-control-lg form-control-borderless"
                                             id="inputPassword2"
                                             name="product_name"
                                             placeholder="Search for products" type="text">
@@ -285,16 +285,15 @@
                             {% for value in stocklist%}
                             <tr scope="row">
                                 <td><a>{{ value[0] }}</a></td>
-                                <td><a href={{ value[3] }}>{{ value[1] }}</a></td>
+                                <td><a> href={{ value[3] }}>{{ value[1] }}</a></td>
                                 <td><a>{{ value[2] }}</a></td>
-                                <td><a href={{ value[6] }}>{{ value[4] }}</a></td>
+                                <td><a> href={{ value[6] }}>{{ value[4] }}</a></td>
                                 <td><a>{{ value[5] }}</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-            </div>
             </div>
         </section>
         <!--*********************************  end of all the sections *****************************-->
