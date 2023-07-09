@@ -1,5 +1,5 @@
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask import Flask, render_template, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from utils.proccess import search_product
@@ -35,7 +35,7 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', isLogin=current_user.is_authenticated)
 
 
 @app.route('/login', methods=['GET', 'POST'])
