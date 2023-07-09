@@ -114,7 +114,8 @@ def users():
         user = {
             'name': user_list[i].name,
             'email': user_list[i].email,
-            'username': user_list[i].username
+            'username': user_list[i].username,
+            'role': 'Admin' if current_user.username == user_list[i].username else 'User'
         }
         user_list[i] = user
     return render_template('users.html', user_list=user_list)
