@@ -8,6 +8,7 @@ Tech Used :
 3. Front End : HTML, CSS
 4. Flask, AWS
 
+Deployed on here : [Nautica](https://nautica.onrender.com/)
 
 ## Installation
 
