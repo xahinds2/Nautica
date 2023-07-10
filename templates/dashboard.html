@@ -268,6 +268,7 @@
                 <div class="table-responsive custom-table-responsive">
                     <table class="table custom-table">
                         <thead>
+                            {% if stocklist %}
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Products available in Flipkart</th>
@@ -275,6 +276,7 @@
                                 <th scope="col">Products available in Amazon</th>
                                 <th scope="col">Price</th>
                             </tr>
+                            {% endif %}
                         </thead>
                         <tbody>
                             {% for value in stocklist%}
