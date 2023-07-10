@@ -76,7 +76,8 @@ def signup():
             'username': username,
             'password': hashed_password,
             'name': name,
-            'email': email
+            'email': email,
+            'role': 'User'
         }
         collection.insert_one(user_data)
         return redirect(url_for('login'))
